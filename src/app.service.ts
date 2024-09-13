@@ -96,7 +96,7 @@ export class AppService {
     try {
       // Fetch and upload categories
       const categoriesData = await this.fetchCategories();
-      // await this.modifyAndUploadCategory(categoriesData?.data?.categories);
+      await this.modifyAndUploadCategory(categoriesData?.data?.categories);
       
       // Fetching Articles under categories
       let totalArticles = 0;

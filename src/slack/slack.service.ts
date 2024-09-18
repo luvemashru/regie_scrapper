@@ -14,7 +14,7 @@ export class SlackService {
     });
 
     this.app = new App({
-      token:'',
+      token: process.env.SLACK_BOT_TOKEN,
       receiver,
     });
 

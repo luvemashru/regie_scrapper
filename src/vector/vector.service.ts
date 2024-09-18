@@ -9,8 +9,7 @@ const cosineSimilarity = require('compute-cosine-similarity');
 @Injectable()
 export class VectorService {
   private openai: OpenAI;
-  private readonly ApiKey: string =
-    '';
+  private readonly ApiKey: string = process.env.OPENAI_API_KEY;
   constructor(
     @InjectModel('Category') private readonly categoryModel: Model<Category>,
     @InjectModel('Article') private readonly articleModel: Model<Article>,

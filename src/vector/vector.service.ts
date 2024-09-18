@@ -10,7 +10,7 @@ const cosineSimilarity = require('compute-cosine-similarity');
 export class VectorService {
   private openai: OpenAI;
   private readonly ApiKey: string =
-    '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';
+    '';
   constructor(
     @InjectModel('Category') private readonly categoryModel: Model<Category>,
     @InjectModel('Article') private readonly articleModel: Model<Article>,

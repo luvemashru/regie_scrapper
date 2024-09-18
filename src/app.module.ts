@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticleSchema } from './scehmas/article.schema';
 import { CategorySchema } from './scehmas/category.schema';
+import { VectorService } from './vector/vector.service';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { CategorySchema } from './scehmas/category.schema';
     ]),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, VectorService],
 })
 export class AppModule {}

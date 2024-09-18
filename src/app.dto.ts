@@ -1,9 +1,9 @@
 import { IsInt } from 'class-validator';
 
 export class ScraperResponseDto {
-    @IsInt()
-    categoryCount: number;
+  @IsInt()
+  categoryCount: number;
 
-    @IsInt()
-    articleCount: number;
+  @IsInt()
+  articleCount: number;
 }

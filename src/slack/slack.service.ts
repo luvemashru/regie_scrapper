@@ -10,12 +10,11 @@ export class SlackService {
 
   constructor() {
     const receiver = new ExpressReceiver({
-      signingSecret: '59f66eec355b2009c0730b1942662b37',
+      signingSecret: '',
     });
 
     this.app = new App({
-      token:
-        'xapp-1-A07N7DPFMA5-7745414878853-483607aabd0746c6a17eb3eb2a30817b388e531f30c9d07e584411f9c2a3832f',
+      token:'',
       receiver,
     });
 

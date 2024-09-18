@@ -72,64 +72,62 @@ export class AppService {
   }
 
   async modifyAndUploadCategory(categories): Promise<void> {
-    const categoriesData = []
-    for(const category of categories) {
-      categoriesData.push(
-        {
-          name: category.name,
-          description: category.description,
-          updatedAt: category.updatedAt,
-          slug:category.slug,
-          articlesCount: category.articlesCount
-        }
-      ) 
+    const categoriesData = [];
+    for (const category of categories) {
+      categoriesData.push({
+        name: category.name,
+        description: category.description,
+        updatedAt: category.updatedAt,
+        slug: category.slug,
+        articlesCount: category.articlesCount,
+      });
     }
     this.categoryModel.insertMany(categoriesData);
   }
 
   async uploadArticles(articles) {
-    await this.articleModel.insertMany(articles)
+    await this.articleModel.insertMany(articles);
   }
-  
+
   // Main function to start scraping data
   async fetchData(): Promise<ScraperResponseDto> {
     try {
       // Fetch and upload categories
       const categoriesData = await this.fetchCategories();
       await this.modifyAndUploadCategory(categoriesData?.data?.categories);
-      
+
       // Fetching Articles under categories
       let totalArticles = 0;
-      let count = 0
+      let count = 0;
       for (const category of categoriesData?.data?.categories ?? []) {
         // Fetch articles based on slug
         const slug = category.slug;
         const articlesData = await this.fetchArticles(slug);
-        count += 1
+        count += 1;
         const articleDetails = [];
-        //Fetch Article Content 
+        //Fetch Article Content
         for (const article of articlesData?.data?.articles ?? []) {
           const articleSlug = article.slug;
           const articleData = await this.fetchArticleDetails(articleSlug);
           articleDetails.push({
-            title:articleData.data.article.title,
-            subtitle:articleData.data.article.subtitle,
-            content:articleData.data.article.contents,
-            articleSlug:articleData.data.article.slug,
-            categorySlug:slug,
-            updatedAt:articleData.data.article.updatedAt
-          })
+            title: articleData.data.article.title,
+            subtitle: articleData.data.article.subtitle,
+            content: articleData.data.article.contents,
+            articleSlug: articleData.data.article.slug,
+            categorySlug: slug,
+            updatedAt: articleData.data.article.updatedAt,
+          });
           totalArticles += 1;
         }
-        await this.uploadArticles(articleDetails)
-        console.log(`Processed ${count} categories`)
+        await this.uploadArticles(articleDetails);
+        console.log(`Processed ${count} categories`);
       }
       console.log(`Total Articles: ${totalArticles}`);
       console.log(JSON.stringify(categoriesData, null, 2));
       return {
         articleCount: totalArticles,
-        categoryCount: categoriesData?.data?.categories.length
-      }
+        categoryCount: categoriesData?.data?.categories.length,
+      };
     } catch (error) {
       console.error('Error fetching data:', error);
     }
